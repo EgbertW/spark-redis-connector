@@ -56,11 +56,3 @@ For more information about [Redis], [RedisCluster], and [Jedis] you can visit th
 
 ### Want to contribute or have other questions?
 Please Do !
-    
-    
-
-### License
-
-
-
-Anchormen, BV.
