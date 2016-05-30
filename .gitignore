@@ -1,0 +1,13 @@
+/bin/
+/target/
+bin/
+target/
+.settings/
+.loadpath
+.project
+.classpath
+.cache-main
+.cache-tests
+.idea
+#mac
+.DS_Store
