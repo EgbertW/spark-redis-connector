@@ -1,8 +1,8 @@
 
 lazy val projectSettings = Seq(
-  name := "spark-redis-receiver",
+  name := "spark-redis-connector",
   organization := "nl.anchormen",
-  version := "0.0.1-SNAPSHOT",
+  version := "0.0.2-SNAPSHOT",
   scalaVersion := "2.11.7",
   crossPaths 	:= false)
 
@@ -17,7 +17,3 @@ lazy val projectAggregatedSettings = projectSettings ++ projectDependencies
 
 lazy val root = (project in file("."))
   .settings(projectAggregatedSettings: _*)
-
-
-/*Assembly Settings*/
-//assemblyJarName in assembly := "spark-redis-receiver_2.11_1.6.0.jar"
