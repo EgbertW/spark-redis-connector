@@ -29,6 +29,7 @@ object RedisConsumer {
     redisConfigCluster.setStreamingStruct("list")
     RedisUtils.createStream(ssc, redisConfigCluster, Set("Key1", "Key2", "Key3")) .print()
 
+
     /*note: using the default timeout=200 and cluster=false*/
     val redisConfigNode = new RedisConfig()
     redisConfigNode.setHost("localhost")

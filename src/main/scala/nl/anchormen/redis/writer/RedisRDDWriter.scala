@@ -3,7 +3,6 @@ package nl.anchormen.redis.writer
 import nl.anchormen.redis.common.RedisConfig
 import org.apache.spark.Logging
 import org.apache.spark.rdd.RDD
-
 import scala.util.{Failure, Success}
 
 /**
@@ -12,10 +11,9 @@ import scala.util.{Failure, Success}
 
 class RedisRDDWriter (rdd: RDD[(String, String)]) extends Serializable with Logging{
 
-  /*todo: optimize for streaming*/
   private def saveToRedis(redisConfig: RedisConfig, operation: Int): Unit = {
     rdd.foreachPartition(dataItr => {
-      import nl.anchormen.redis.common.RedisCommon._
+      import nl.anchormen.redis.common.RedisInstanceManager._
       getRedisUnifiedAPI(redisConfig) match {
         case Success(j) => {
           log.info("successfully connected to Redis")

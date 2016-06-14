@@ -15,7 +15,7 @@ abstract class RedisReceiver(redisConfig: RedisConfig, keySet: Set[String], stor
 
   override def onStart(): Unit = {
     implicit val akkaSystem = akka.actor.ActorSystem()
-    import nl.anchormen.redis.common.RedisCommon._
+    import nl.anchormen.redis.common.RedisInstanceManager._
     getRedisUnifiedAPI(redisConfig) match {
       case Success(j) => log.info("onStart, Connecting to Redis API")
         new Thread("Redis List Receiver") {
