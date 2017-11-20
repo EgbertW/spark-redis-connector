@@ -5,14 +5,14 @@ package nl.anchormen.redis.receiver
   */
 
 import nl.anchormen.redis.common.RedisConfig
-import org.apache.spark.Logging
+import com.typesafe.scalalogging.LazyLogging
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.ReceiverInputDStream
 import org.apache.spark.streaming.receiver.Receiver
 
 private class RedisReceiverInputDStream(@transient ssc_ : StreamingContext, redisConfig: RedisConfig,
-  keySet: Set[String]) extends ReceiverInputDStream[(String, String)](ssc_) with Logging {
+  keySet: Set[String]) extends ReceiverInputDStream[(String, String)](ssc_) with LazyLogging {
 
   val _storageLevel: StorageLevel = StorageLevel.MEMORY_AND_DISK_SER_2
   override def getReceiver(): Receiver[(String, String)] = {

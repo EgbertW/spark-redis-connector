@@ -1,7 +1,7 @@
 package nl.anchormen.redis.writer
 
 import nl.anchormen.redis.common.RedisConfig
-import org.apache.spark.Logging
+import com.typesafe.scalalogging.LazyLogging
 import org.apache.spark.rdd.RDD
 import scala.util.{Failure, Success}
 
@@ -9,27 +9,27 @@ import scala.util.{Failure, Success}
   * Created by elsioufy on 30-5-16.
   */
 
-class RedisRDDWriter (rdd: RDD[(String, String)]) extends Serializable with Logging{
+class RedisRDDWriter (rdd: RDD[(String, String)]) extends Serializable with LazyLogging{
 
   private def saveToRedis(redisConfig: RedisConfig, operation: Int): Unit = {
     rdd.foreachPartition(dataItr => {
       import nl.anchormen.redis.common.RedisInstanceManager._
       getRedisUnifiedAPI(redisConfig) match {
         case Success(j) => {
-          log.info("successfully connected to Redis")
+          logger.info("successfully connected to Redis")
           dataItr.foreach{
             case(k,v)=> {
               operation match {
                 case 1 => j.add(k, v)/*KV*//*collision: overwrite*/
                 case 2 => j.ladd(k,v)/*List*//*always append*/
                 case 3 => j.sadd(k,v)/*Set*//*collision: overwrite*/
-                case _ => log.error("invalid input operation: (" + operation + ") doing nothing")
+                case _ => logger.error("invalid input operation: (" + operation + ") doing nothing")
               }
             }
           }
           j.close()
         }
-        case Failure(f) => log.error("Could not connect to Redis=> "+ f.getMessage)
+        case Failure(f) => logger.error("Could not connect to Redis=> "+ f.getMessage)
       }
     })
   }

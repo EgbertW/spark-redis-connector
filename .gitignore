@@ -1,8 +1,10 @@
 /bin/
-/target/
+target/
 bin/
 target/
 .settings/
+project/build.properties
+project/target
 .loadpath
 .project
 .classpath
@@ -11,3 +13,4 @@ target/
 .idea
 #mac
 .DS_Store
+*.log
